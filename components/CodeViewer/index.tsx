@@ -1,23 +1,26 @@
 "use client";
 
 import * as shadcnComponents from "@/utils/shadcn";
-import { Sandpack } from "@codesandbox/sandpack-react";
 import {
-  SandpackPreview,
+  Sandpack,
   SandpackProvider,
-} from "@codesandbox/sandpack-react/unstyled";
+  SandpackLayout,
+  SandpackCodeEditor,
+  SandpackFileExplorer,
+  SandpackPreview,
+} from "@codesandbox/sandpack-react";
 import { dracula as draculaTheme } from "@codesandbox/sandpack-themes";
 import dedent from "dedent";
 import "./index.css";
 
 export default function CodeViewer({
   code,
-  showEditor = false,
+  enableEdit = false,
 }: {
   code: string;
-  showEditor?: boolean;
+  enableEdit?: boolean;
 }) {
-  return showEditor ? (
+  return !enableEdit ? (
     <Sandpack
       options={{
         showNavigator: true,
@@ -41,11 +44,15 @@ export default function CodeViewer({
       options={{ ...sharedOptions }}
       {...sharedProps}
     >
-      <SandpackPreview
-        className="flex h-full w-full grow flex-col justify-center p-4 md:pt-16"
-        showOpenInCodeSandbox={false}
-        showRefreshButton={false}
-      />
+      <SandpackLayout className="sp-editor-provider-layout">
+        <SandpackFileExplorer />
+        <SandpackCodeEditor />
+        <SandpackPreview
+          className="flex h-full w-full grow flex-col justify-center p-4 md:pt-16"
+          showOpenInCodeSandbox={false}
+          showRefreshButton={false}
+        />
+      </SandpackLayout>
     </SandpackProvider>
   );
 }

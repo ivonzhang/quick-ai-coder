@@ -5,3 +5,7 @@
 .sp-preview-iframe {
   @apply grow;
 }
+
+.sp-editor-provider-layout > * {
+  height: 80vh!important;
+}
