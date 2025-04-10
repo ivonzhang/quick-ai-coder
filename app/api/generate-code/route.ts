@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       try {
         for await (const chunk of deepseekStream) {
           const chunkText = chunk.choices[0].delta?.content || "";
-          console.log("chunkText", chunkText);
+          // console.log("chunkText", chunkText);
           controller.enqueue(encoder.encode(chunkText));
         }
       } catch (error) {
